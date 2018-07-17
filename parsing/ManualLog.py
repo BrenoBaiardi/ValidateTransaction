@@ -1,26 +1,9 @@
 import os,re
-
-# def getData(NSU_row):
-#     aux = {}  # cria dict auxiliar
-#     print('{0:=^100}'.format(''))
-#     print(NSU_row[i], end='')
-#     print('{0:=^100}'.format(''))
-#     start_row = data.index(NSU_row[i])
-#     inner_row = start_row + 2
-#     while "NSU:" not in data[inner_row]:  # enquanto não encontrar uma linha contendo outro ou o memso NSU
-#         if bit_pattern.search(data[inner_row]):
-#             span = bit_pattern.search(data[inner_row]).span()
-#             aux[data[inner_row][span[0] + 3:span[0] + 6]] = data[inner_row][span[1]:].split()[
-#                 0]  # popula dict auxiliar
-#             print(data[inner_row][span[0]:span[1]], end="")
-#             print(data[inner_row][span[1]:], end='')
-#         inner_row += 1
-#     pernas[i] = aux  # atribui dict auxiliar em dict externo
-#     return pernas
+import time #somente para salvamento do log com hora e data para testes
 
 NSU_row_list = []
-NSU = r"NSU:001742"
-# NSU = r"NSU:" + input("insira o NSU:")  # inserir NSU da transacao
+# NSU = r"NSU:001742"
+NSU = r"NSU:" + input("insira o NSU:")  # inserir NSU da transacao
 NSU_pattern = re.compile(NSU)
 bit_pattern = re.compile(r"(bit|cpo)\d{3}: ")
 aux = []
@@ -73,9 +56,14 @@ for filepath in os.listdir('C:/Users/breno.oliveira/PycharmProjects/BitLog/venv/
             aux=[]
             continue
 
+out_file = open(time.strftime("Evidencia - %d%m%Y %H%M.txt"),mode="w",encoding="utf-8")
+for i in bits:
+    out_file.write("".join(i))
+
 for i in bits:
     for j in i:
         print(j,end='')
     # input("wait...")
 
 print("End")
+out_file.close()
